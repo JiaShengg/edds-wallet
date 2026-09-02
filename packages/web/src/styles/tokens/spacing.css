@@ -1,0 +1,22 @@
+/* 4px base step. Kid-facing surfaces use the upper half of the scale; parent-facing
+   dense views (rule lists, ledger rows) use the lower half. */
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  --gap-row: var(--space-3);
+  --gap-card: var(--space-4);
+  --pad-card: var(--space-5);
+  --pad-screen: var(--space-6);
+  --tap-min: 56px; /* kid-mode minimum tap target */
+  --tap-min-parent: 44px;
+  --measure: 60ch;
+}

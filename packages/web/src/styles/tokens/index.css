@@ -1,0 +1,19 @@
+/**
+ * Edd's Wallet design tokens - "Bubblegum Arcade"
+ * ------------------------------------------------
+ * Single source of truth, imported verbatim from the captain's Claude
+ * Design export (see packages/web/design-system/README.md for provenance
+ * and the full guideline set). Every screen/component should consume
+ * these CSS custom properties rather than hardcoding hex values, font
+ * names, spacing, radii, shadows or durations.
+ *
+ * Import order matters: fonts before typography (typography references
+ * the font families), colors before typography (typography's base
+ * element rules reference color aliases like --text-body).
+ */
+@import "./fonts.css";
+@import "./colors.css";
+@import "./typography.css";
+@import "./spacing.css";
+@import "./shape.css";
+@import "./motion.css";

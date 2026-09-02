@@ -1,24 +1,9 @@
 /**
- * Minimal base styles for the sanity-check page. Product screens are out of
- * scope for this foundation package - this file only proves the tokens and
- * fonts wire up correctly; do not grow it into a component library here.
+ * Minimal global reset. Base element styling (body background/color/font,
+ * heading font/weight) is owned by tokens/typography.css so there is one
+ * place that maps elements to design tokens - see
+ * packages/web/design-system/README.md.
  */
 * {
   box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--color-bg);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  font-weight: var(--font-weight-body-regular);
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-  font-weight: var(--font-weight-display-semibold);
-  margin: 0 0 0.5em;
 }

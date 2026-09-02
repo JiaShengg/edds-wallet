@@ -7,7 +7,15 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**", "!**/dist", "!**/build", "!**/node_modules"]
+    "includes": [
+      "**",
+      "!**/dist",
+      "!**/build",
+      "!**/node_modules",
+      "!packages/web/design-system/ui-kit",
+      "!packages/web/design-system/guidelines",
+      "!packages/web/design-system/provenance"
+    ]
   },
   "formatter": {
     "enabled": true,

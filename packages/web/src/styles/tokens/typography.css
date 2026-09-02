@@ -1,0 +1,51 @@
+/* PRD §6.2 — Fredoka for display/headings/big numbers, Quicksand for all body copy. */
+:root {
+  --font-display: "Fredoka", system-ui, sans-serif;
+  --font-body: "Quicksand", system-ui, sans-serif;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* display scale (Fredoka) */
+  --type-balance: 64px;
+  --type-display-lg: 40px;
+  --type-display-md: 30px;
+  --type-display-sm: 24px;
+  /* body scale (Quicksand) */
+  --type-body-lg: 18px;
+  --type-body: 16px;
+  --type-body-sm: 14px;
+  --type-caption: 12px;
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-body: 1.5;
+
+  --tracking-tight: -0.01em;
+  --tracking-normal: 0;
+  --tracking-caps: 0.08em;
+}
+body {
+  font-family: var(--font-body);
+  color: var(--text-body);
+  background: var(--surface-page);
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  margin: 0;
+}
+a {
+  color: var(--color-primary-dark);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+a:hover {
+  color: var(--color-secondary);
+}

@@ -1,17 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img">
-  <title>My balance</title>
-  <!-- Chunky Filled icon set, "my balance" (design report Section 2.4). -->
-  <ellipse
-    cx="24"
-    cy="27"
-    rx="16"
-    ry="12"
-    fill="currentColor"
-    opacity="0.15"
-    stroke="currentColor"
-    stroke-width="3.5"
-  />
-  <circle cx="36" cy="24" r="5" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="3" />
-  <rect x="20" y="16" width="8" height="3" rx="1.5" fill="currentColor" />
-  <circle cx="18" cy="27" r="2" fill="currentColor" />
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" width="48" height="48" role="img"><title>My balance</title><ellipse cx="24" cy="27" rx="16" ry="12" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="3.5"></ellipse><circle cx="36" cy="24" r="5" fill="currentColor" opacity="0.15" stroke="currentColor" stroke-width="3"></circle><rect x="20" y="16" width="8" height="3" rx="1.5" fill="currentColor"></rect><circle cx="18" cy="27" r="2" fill="currentColor"></circle></svg>

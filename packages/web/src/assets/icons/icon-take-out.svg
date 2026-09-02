@@ -1,13 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img">
-  <title>Take out / withdraw</title>
-  <!-- Chunky Filled icon set, "take out / withdraw" (design report Section 2.4). -->
-  <circle cx="24" cy="26" r="16" fill="currentColor" opacity="0.15" />
-  <circle cx="24" cy="26" r="16" stroke="currentColor" stroke-width="3.5" />
-  <path
-    d="M24 19v14M18 27l6 6 6-6"
-    stroke="currentColor"
-    stroke-width="3.5"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" width="48" height="48" role="img"><title>Take out</title><circle cx="24" cy="26" r="16" fill="currentColor" opacity="0.15"></circle><circle cx="24" cy="26" r="16" stroke="currentColor" stroke-width="3.5"></circle><path d="M24 19v14M18 27l6 6 6-6" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
