@@ -1,0 +1,21 @@
+node_modules/
+dist/
+build/
+*.log
+*.tsbuildinfo
+npm-debug.log*
+.DS_Store
+.env
+.env.local
+*.local
+
+# SQLite runtime data (backend worker's db lives here, never committed)
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+
+# editor/OS
+.vscode/*
+!.vscode/extensions.json
+.idea/

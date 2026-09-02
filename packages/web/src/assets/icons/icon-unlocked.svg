@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img">
+  <title>Unlocked!</title>
+  <!-- Chunky Filled icon set, "unlocked!" (design report Section 2.4). -->
+  <path
+    d="M24 8 L28.5 19 L40 20 L31 27.5 L34 39 L24 32.5 L14 39 L17 27.5 L8 20 L19.5 19 Z"
+    fill="currentColor"
+    opacity="0.2"
+    stroke="currentColor"
+    stroke-width="3"
+    stroke-linejoin="round"
+  />
+</svg>
