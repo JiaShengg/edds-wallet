@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" role="img">
+  <title>Add money</title>
+  <!-- Chunky Filled icon set, "add money" (design report Section 2.4). Uses
+       currentColor so the surrounding element's `color` (a design token)
+       drives the tint. -->
+  <circle cx="24" cy="26" r="16" fill="currentColor" opacity="0.15" />
+  <circle cx="24" cy="26" r="16" stroke="currentColor" stroke-width="3.5" />
+  <path
+    d="M24 19v14M18 24l6-6 6 6"
+    stroke="currentColor"
+    stroke-width="3.5"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+</svg>
