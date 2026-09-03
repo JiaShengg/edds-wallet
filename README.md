@@ -8,14 +8,15 @@ this repo follows.
 
 ## Status
 
-The foundation (shared npm-workspaces skeleton, design system) plus the
-Phase 0 **backend** are implemented: mock auth, the full schema (report
-Section 3) via Drizzle migrations, balance, manual deposit/withdrawal,
-allowance rules (create/edit/pause/resume) with a catch-up-safe
-scheduler, and the server-side read-only child mode gate. See
-`packages/api/README.md` and `packages/api/API.md` for details. The
-frontend SPA's product screens are separate follow-on work against
-`packages/web`.
+Phase 0 is implemented end to end. The **backend** (`packages/api`) has
+mock auth, the full schema (report Section 3) via Drizzle migrations,
+balance, manual deposit/withdrawal, allowance rules
+(create/edit/pause/resume) with a catch-up-safe scheduler, and the
+server-side read-only child mode gate - see `packages/api/README.md` and
+`packages/api/API.md`. The **frontend** (`packages/web`) has the design
+system (tokens, fonts, icons, components) and the three real Phase 0
+screens - login/profile selector, parent dashboard, Edd's wallet view -
+wired to that API contract - see `packages/web/README.md`.
 
 ## Repo layout
 
@@ -49,13 +50,13 @@ environment variables (DB location, ports, seeded PINs) and
 ## Tests
 
 ```sh
-npm run test     # runs the backend's vitest suites (role-enforcement, ledger-math, etc.)
+npm run test      # runs the backend's vitest suites (role-enforcement, ledger-math, etc.)
+npm run test:e2e  # Playwright smoke test: parent deposit -> switch to child -> read-only + correct balance
 ```
 
-See `packages/api/README.md` for what each suite covers. A Playwright
-end-to-end smoke test (parent deposit -> switch to child -> confirm
-read-only + correct balance) is the frontend worker's to add against
-`packages/web`.
+See `packages/api/README.md` for what each vitest suite covers, and
+`packages/web/README.md` "End-to-end test" for running the Playwright
+suite against a real backend.
 
 ## Tooling
 

@@ -15,6 +15,10 @@ npm-debug.log*
 *.db-wal
 *.db-shm
 
+# Playwright output
+packages/web/test-results/
+packages/web/playwright-report/
+
 # editor/OS
 .vscode/*
 !.vscode/extensions.json
