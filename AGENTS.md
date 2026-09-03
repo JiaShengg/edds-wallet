@@ -18,9 +18,12 @@ This file is the project's committed home for project-intrinsic agent knowledge:
 ## Repo layout
 
 npm workspaces monorepo: `packages/web` (Vite + React 19 SPA, has the
-design system), `packages/api` (Fastify API server, placeholder boundary
-only as of the foundation commit), `packages/shared` (schemas shared
-between web/api, placeholder boundary only). See each package's README.md.
+design system), `packages/api` (Fastify API server - Phase 0 backend is
+implemented: mock auth, full schema/migrations, ledger, allowance
+scheduler), `packages/shared` (Zod schemas + response DTO types shared
+between web/api - the request/response contract). See each package's
+README.md, and `packages/api/API.md` for the endpoint contract the
+frontend integrates against.
 
 ## Tooling
 
@@ -29,6 +32,65 @@ between web/api, placeholder boundary only). See each package's README.md.
 - TypeScript: shared strict base in `tsconfig.base.json`, extended per
   package. `npm run typecheck` runs it across all workspaces.
 - Node: `^22.12 || >=24` (matches Vite 8's engine requirement).
+- Backend tests: `npm run test` (root) or `npm run test -w @edds-wallet/api`
+  runs the vitest suites - see `packages/api/README.md` for what each one
+  covers.
+
+## Backend runtime: raw TypeScript, no build step
+
+`packages/api` runs its `.ts` source directly via Node's native TypeScript
+support (`node src/start.ts` / `node --watch src/dev.ts`) - there is no
+transpile/`dist` step for the API (unlike `packages/web`, which still
+goes through `tsc -b && vite build`). Two things this requires, both
+already followed throughout `packages/api/src`:
+
+- Every relative import needs an explicit `.ts` extension (Node resolves
+  `.ts` files itself; it doesn't do extensionless/bundler-style
+  resolution). `tsconfig.json`'s `allowImportingTsExtensions` makes `tsc
+  -b --noEmit` accept this.
+- Only *erasable* TypeScript syntax is safe at runtime: no `enum`, no
+  `namespace`, and critically **no constructor parameter properties**
+  (`constructor(public readonly x: number)`) - Node's stripper rejects
+  those with `ERR_UNSUPPORTED_TYPESCRIPT_SYNTAX` because they require an
+  actual code transform, not just type-erasure. Declare fields normally
+  and assign them in the constructor body instead.
+- `@edds-wallet/shared`'s `package.json` `main`/`types` point straight at
+  `./src/index.ts` for the same reason - it's imported as raw TS by both
+  Vite (bundles it) and the API (Node strips it at import time), no build
+  step in either direction.
+
+## Fastify hooks: always declare `async`
+
+A plain synchronous 2-argument hook/`preHandler` (`(request, reply) =>
+{...}`, no `async`, no third `done` callback) is ambiguous to Fastify's
+hook runner and can hang the request forever instead of proceeding or
+erroring - confirmed directly in this environment. Every hook and
+`preHandler` in `packages/api/src/auth/*` and `src/routes/*` is declared
+`async` (even ones with nothing to await) specifically to avoid this;
+keep doing that for any new one.
+
+## SQLite driver: `better-sqlite3`, not `node:sqlite`
+
+`data/edw-tech-research/report.md` recommended `node:sqlite` as primary
+with `better-sqlite3` as a documented fallback. In practice, as of this
+repo's dependency versions, `drizzle-orm`'s **stable** release line
+(`0.45.2`) has no `node:sqlite` driver at all (that only exists on its
+`1.0.0-beta`/`rc` line) - so this repo uses `better-sqlite3`
+(`packages/api/src/db/connection.ts`), the report's own documented
+fallback, rather than depending on an unstable ORM release for a
+money-shaped app. Re-evaluate if/when `drizzle-orm` ships `node:sqlite`
+support on a stable release.
+
+## Schema/migrations
+
+The full schema (`packages/api/src/db/schema.ts`) ships in one migration,
+`packages/api/drizzle/0000_init.sql`. That file is `drizzle-kit generate`
+output, hand-patched afterward to add `STRICT` to every table and the
+append-only `BEFORE UPDATE`/`BEFORE DELETE` triggers on
+`cash_entries`/`credit_entries` - `drizzle-kit`'s SQLite generator doesn't
+emit either. Regenerating migrations for a future schema change needs the
+same two patches re-applied by hand to the new file; see that file's
+header comment.
 
 ## Maintaining this file
 
