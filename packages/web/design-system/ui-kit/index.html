@@ -1,0 +1,61 @@
+<!-- @dsCard group="Wallet app" viewport="1280x900" name="Wallet app — click-through" subtitle="Login → parent dashboard → child wallet, with both modals" -->
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Edd's Wallet — UI kit</title>
+<link rel="stylesheet" href="../../styles.css">
+<style>html,body{margin:0;padding:0}body{background:var(--color-bg)}#root{position:relative;min-height:100vh}</style></head>
+<body><div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+<script src="data.js"></script>
+<script type="text/babel" src="LoginScreen.jsx"></script>
+<script type="text/babel" src="MoneyModal.jsx"></script>
+<script type="text/babel" src="RuleModal.jsx"></script>
+<script type="text/babel" src="ParentDashboard.jsx"></script>
+<script type="text/babel" src="ChildWallet.jsx"></script>
+<script type="text/babel">
+function App() {
+  const seed = window.WalletSeed;
+  const [role, setRole] = React.useState(null);
+  const [state, setState] = React.useState({ balanceCents: seed.balanceCents, rules: seed.rules, ledger: seed.ledger });
+  const [money, setMoney] = React.useState(false);
+  const [ruleModal, setRuleModal] = React.useState(null); // {rule} | 'new' | null
+
+  const saveMoney = ({ kind, cents, memo }) => {
+    const label = kind === 'deposit' ? 'You got ' + window.money(cents) + '!' : window.money(cents) + ' left your wallet';
+    setState((s) => ({
+      ...s,
+      balanceCents: kind === 'deposit' ? s.balanceCents + cents : s.balanceCents - cents,
+      ledger: [{ id: 'n' + Date.now(), kind, amountCents: cents, memo, when: 'Just now', kidTitle: label, emoji: kind === 'deposit' ? '🎉' : '🛍️' }, ...s.ledger],
+    }));
+    setMoney(false);
+  };
+
+  const saveRule = (r) => {
+    setState((s) => ({
+      ...s,
+      rules: r.id ? s.rules.map((x) => x.id === r.id ? { ...x, ...r } : x) : [...s.rules, { ...r, id: 'r' + Date.now(), paused: false }],
+    }));
+    setRuleModal(null);
+  };
+
+  const togglePause = (id) => setState((s) => ({ ...s, rules: s.rules.map((r) => r.id === id ? { ...r, paused: !r.paused } : r) }));
+
+  if (!role) return <LoginScreen household={seed.household} onLogin={setRole} />;
+
+  return (
+    <>
+      {role === 'parent'
+        ? <ParentDashboard
+            state={state} childName={seed.household.childName}
+            onOpenMoney={() => setMoney(true)} onNewRule={() => setRuleModal('new')}
+            onEditRule={(r) => setRuleModal(r)} onTogglePause={togglePause}
+            onSwitchUser={() => setRole(null)} />
+        : <ChildWallet state={state} childName={seed.household.childName} onSwitchUser={() => setRole(null)} />}
+      {money ? <MoneyModal balanceCents={state.balanceCents} childName={seed.household.childName} onClose={() => setMoney(false)} onSave={saveMoney} /> : null}
+      {ruleModal ? <RuleModal rule={ruleModal === 'new' ? null : ruleModal} onClose={() => setRuleModal(null)} onSave={saveRule} /> : null}
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script></body></html>

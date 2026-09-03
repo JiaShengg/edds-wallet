@@ -1,40 +1,33 @@
-import appIcon from './assets/icons/app-icon-happy-piggy.svg';
-import addMoneyIcon from './assets/icons/icon-add-money.svg?raw';
-import allowanceDayIcon from './assets/icons/icon-allowance-day.svg?raw';
-import myBalanceIcon from './assets/icons/icon-my-balance.svg?raw';
-import parentLockIcon from './assets/icons/icon-parent-lock.svg?raw';
-import takeOutIcon from './assets/icons/icon-take-out.svg?raw';
-import unlockedIcon from './assets/icons/icon-unlocked.svg?raw';
+import { Badge, Icon, type IconName } from './components/core';
+import { BrandMark } from './components/wallet';
 
-const chunkyFilledIcons = [
-  { label: 'Add money', raw: addMoneyIcon },
-  { label: 'Take out', raw: takeOutIcon },
-  { label: 'Allowance day', raw: allowanceDayIcon },
-  { label: 'My balance', raw: myBalanceIcon },
-  { label: 'Parent lock', raw: parentLockIcon },
-  { label: 'Unlocked!', raw: unlockedIcon },
+const iconNames: { label: string; name: IconName }[] = [
+  { label: 'Add money', name: 'add-money' },
+  { label: 'Take out', name: 'take-out' },
+  { label: 'Allowance day', name: 'allowance-day' },
+  { label: 'My balance', name: 'my-balance' },
+  { label: 'Parent lock', name: 'parent-lock' },
+  { label: 'Unlocked!', name: 'unlocked' },
 ];
 
 /**
  * Design-system sanity check - NOT a product screen.
  *
- * Proves the three foundation pieces this package ships load and compose
- * correctly: design tokens (src/styles/tokens.css), fonts
- * (src/styles/fonts.css), and the icon set (src/assets/icons/). The
- * "Chunky Filled" icons use `stroke="currentColor"`, so they're inlined
- * (via Vite's `?raw` import) inside an element whose `color` is set from a
- * token, demonstrating that the icons tint correctly wherever they're used.
+ * Proves the design system this package ships compiles and renders:
+ * tokens (src/styles/tokens/), the brand mark (src/components/wallet/BrandMark),
+ * and the six "Chunky Filled" icons via the typed Icon component
+ * (src/components/core/Icon). See packages/web/design-system/README.md
+ * for the full map of what's available.
  *
  * Frontend feature work should replace this file's contents with the real
- * app shell/router - just keep importing fonts.css/tokens.css from
- * src/main.tsx.
+ * app shell/router - just keep importing `styles/tokens/index.css` from
+ * src/main.tsx, and keep building on top of src/components/.
  */
 export default function App() {
   return (
     <main style={{ padding: '2rem', maxWidth: 640, margin: '0 auto' }}>
-      <img src={appIcon} alt="Edd's Wallet app icon" width={72} height={72} />
-      <h1>Edd&apos;s Wallet</h1>
-      <p>Design system foundation - tokens, fonts, and icons are wired up.</p>
+      <BrandMark size={72} />
+      <p>Design system - tokens, assets, and components are wired up.</p>
 
       <h2>Palette tokens</h2>
       <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
@@ -66,21 +59,21 @@ export default function App() {
 
       <h2>Chunky Filled icons</h2>
       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-        {chunkyFilledIcons.map((icon) => (
-          <div key={icon.label} style={{ textAlign: 'center', fontSize: '0.75rem' }}>
-            <span
-              style={{
-                display: 'inline-block',
-                width: 40,
-                height: 40,
-                color: 'var(--color-primary)',
-              }}
-              // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted, build-time SVG source files, not user input
-              dangerouslySetInnerHTML={{ __html: icon.raw }}
-            />
-            <div>{icon.label}</div>
+        {iconNames.map(({ label, name }) => (
+          <div key={name} style={{ textAlign: 'center', fontSize: '0.75rem' }}>
+            <Icon name={name} size={40} color="var(--color-primary)" />
+            <div>{label}</div>
           </div>
         ))}
+      </div>
+
+      <h2>Component sample</h2>
+      <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+        <Badge tone="success">Active</Badge>
+        <Badge tone="warning">Paused</Badge>
+        <Badge tone="brand" icon="my-balance">
+          Balance
+        </Badge>
       </div>
     </main>
   );

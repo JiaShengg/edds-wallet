@@ -1,9 +1,15 @@
 # @edds-wallet/web
 
 Vite + React 19 SPA - the frontend package for Edd's Wallet. This package
-currently holds the **design system foundation only** (tokens, fonts,
-icons) plus a runnable skeleton; product screens are built by the frontend
-feature worker on top of this.
+currently holds the **design system** (tokens, fonts, icons, 17
+components) plus a runnable skeleton; product screens are built by the
+frontend feature worker on top of this.
+
+The design system is the captain's Claude Design export ("Bubblegum
+Arcade") - see **`packages/web/design-system/README.md`** for the full
+map of tokens, assets, components, the UI-kit reference screens, and
+design guidelines. That file is the authoritative index; the table below
+is a quick-start summary only.
 
 ## Run it
 
@@ -23,23 +29,18 @@ npm run build -w @edds-wallet/web  # type-checks then builds to dist/
 
 | What | Where | Notes |
 |---|---|---|
-| Design tokens (colors, fonts, weights) | `src/styles/tokens.css` | CSS custom properties, the single source of truth. Import once (see `src/main.tsx`) then reference via `var(--color-primary)` etc. anywhere. |
-| Font loading | `src/styles/fonts.css` | Loads Fredoka + Quicksand from Google Fonts; documents how to swap to self-hosted files without touching `tokens.css`. |
-| App icon | `src/assets/icons/app-icon-happy-piggy.svg` (also served as the favicon at `public/icon.svg`) | "Happy Piggy" concept, pink/coral gradient rounded square + white piggy silhouette. |
-| In-app icon set | `src/assets/icons/icon-*.svg` | "Chunky Filled" style, six icons: add money, take out, allowance day, my balance, parent lock, unlocked. All use `stroke="currentColor"`/`fill="currentColor"` so they tint via the surrounding element's `color` (set it to a token, e.g. `var(--color-primary)`). Import with Vite's `?raw` suffix and inline them (see `src/App.tsx`) rather than `<img>`, so `currentColor` still works. |
-| Sanity check | `src/App.tsx` | Renders the palette swatches and all six icons. Not a product screen - replace with the real app shell, but keep the `fonts.css`/`tokens.css` imports in `src/main.tsx`. |
-
-All values above are sourced from `data/edw-design/report.md` (Section 2.1,
-2.3, 2.4, and the "Recommendation" in Section 4) - that report is the
-authoritative source if a value ever needs to be re-derived or a new icon
-added in the same style.
+| Design tokens (colors, type, spacing, shape, motion) | `src/styles/tokens/` | CSS custom properties, the single source of truth. `index.css` is imported once (see `src/main.tsx`) then everything is available via `var(--color-primary)`, `var(--space-4)`, etc. anywhere. |
+| App icon / brand marks | `src/assets/logo.svg`, `src/assets/piggy-mark.svg` (logo also served as the favicon at `public/icon.svg`) | "Happy Piggy" concept, pink/coral gradient squircle + white piggy silhouette. |
+| In-app icon set | `src/assets/icons/icon-*.svg` | "Chunky Filled" style, six icons: add money, take out, allowance day, my balance, parent lock, unlocked. All use `currentColor` so they tint via the surrounding element's `color` (set it to a token, e.g. `var(--color-primary)`). Prefer the `Icon` component (`src/components/core/Icon.tsx`) over importing these files directly - it inlines the same paths and is already typed. |
+| Components | `src/components/{core,forms,wallet}/` | 17 TypeScript components (buttons, cards, balance card, PIN pad, etc.). See `design-system/README.md` for the full inventory. |
+| Sanity check | `src/App.tsx` | Renders the palette swatches and all six icons. Not a product screen - replace with the real app shell, but keep the `tokens/index.css` import in `src/main.tsx`. |
 
 ## Conventions
 
-- Consume design tokens via the CSS custom properties in `tokens.css`;
-  don't hardcode hex values or font names in components.
+- Consume design tokens via the CSS custom properties in `styles/tokens/`;
+  don't hardcode hex values, font names, spacing or radii in components.
 - New icons should follow the existing "Chunky Filled" pattern
   (`opacity="0.15"` fill + `stroke-width="3.5"`, `currentColor`-driven) so
-  the set stays visually consistent.
+  the set stays visually consistent - see `design-system/provenance/source-readme.md`.
 - Lint/format: root-level Biome config (`biome.json`) covers this package;
   run `npm run lint` / `npm run format` from the repo root.

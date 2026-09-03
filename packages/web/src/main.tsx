@@ -2,11 +2,11 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 
-// Design-system entry points: fonts must load before tokens are useful,
-// tokens must load before any component styling makes sense. See
-// packages/web/README.md for where each of these lives.
-import './styles/fonts.css';
-import './styles/tokens.css';
+// Design-system entry points: the token bundle (fonts, colors, typography,
+// spacing, shape, motion) must load before any component styling makes
+// sense. See packages/web/design-system/README.md for where each token
+// file and each component lives.
+import './styles/tokens/index.css';
 import './styles/app.css';
 
 const rootElement = document.getElementById('root');

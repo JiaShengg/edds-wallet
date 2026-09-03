@@ -1,0 +1,4 @@
+/* Fredoka (display) + Quicksand (body) — both loaded from Google Fonts, per PRD §6.2.
+   No font binaries were provided with the source, so the families are pulled from the
+   Google Fonts CDN rather than shipped as local @font-face binaries. */
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap");

@@ -1,0 +1,45 @@
+/* Bubblegum Arcade — PRD §6.1. Hex values are verbatim from the source. */
+:root {
+  /* base palette */
+  --color-primary: #ff5da2;
+  --color-primary-dark: #d93e82;
+  --color-secondary: #7c5cff;
+  --color-accent: #2fe6c9;
+  --color-bg: #fff5fb;
+  --color-surface: #ffffff;
+  --color-text: #4a2a55;
+  --color-muted: #9a7fb0;
+  --color-success: #3ddc97;
+  --color-warning: #ffc93c;
+  --color-error: #ff5d5d;
+  --color-info: #5da9ff;
+
+  /* extended tints — derived from the base palette for washes, rails and rows */
+  --color-primary-tint: #ffe3f0;
+  --color-secondary-tint: #ebe5ff;
+  --color-accent-tint: #d6fbf4;
+  --color-success-tint: #dff8ec;
+  --color-warning-tint: #fff3d2;
+  --color-error-tint: #ffe3e3;
+  --color-info-tint: #e3f0ff;
+  --color-hairline: #f2dfec;
+  --color-surface-sunken: #fbeff7;
+
+  /* gradients — the app-icon gradient is the one brand gradient (PRD §6.3) */
+  --gradient-brand: linear-gradient(135deg, #ff9dc4, #ff5da2); /* @kind color */
+  --gradient-play: linear-gradient(135deg, #ff5da2, #7c5cff); /* @kind color */
+
+  /* semantic aliases */
+  --text-body: var(--color-text);
+  --text-muted: var(--color-muted);
+  --text-on-brand: #ffffff;
+  --text-brand: var(--color-primary-dark);
+  --surface-page: var(--color-bg);
+  --surface-card: var(--color-surface);
+  --surface-sunken: var(--color-surface-sunken);
+  --border-card: var(--color-hairline);
+  --action-primary: var(--color-primary);
+  --action-primary-press: var(--color-primary-dark);
+  --action-secondary: var(--color-secondary);
+  --focus-ring: var(--color-secondary);
+}

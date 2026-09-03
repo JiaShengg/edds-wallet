@@ -8,11 +8,16 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   `data/edw-tech-research/report.md`. Follow it for anything backend/schema
   related; don't re-derive from first principles.
 - Locked design decisions (Bubblegum Arcade palette, Fredoka/Quicksand
-  fonts, Happy Piggy app icon, Chunky Filled in-app icons), including exact
-  hex values and SVG source: `data/edw-design/report.md` Section 4. The
-  design system files under `packages/web/src/styles/` and
-  `packages/web/src/assets/icons/` are the materialized, single-source-of-
-  truth copies of those decisions - consume them, don't reinvent values.
+  fonts, Happy Piggy app icon, Chunky Filled in-app icons): the captain's
+  Claude Design export, imported into `packages/web/design-system/` and
+  `packages/web/src/{styles/tokens,assets,components}/` - see
+  `packages/web/design-system/README.md` for the map and
+  `packages/web/design-system/provenance/source-readme.md` for full design
+  intent (voice, layout, interaction states, gaps/substitutions). These are
+  the materialized, single-source-of-truth copies of those decisions -
+  consume the tokens/components, don't reinvent values or hand-roll new
+  ones. `data/edw-design/report.md` Section 4 is the original design
+  research this export superseded.
 - Product/MVP scope: `data/edw-mvp/brief.md`.
 
 ## Repo layout
@@ -26,6 +31,10 @@ between web/api, placeholder boundary only). See each package's README.md.
 
 - Lint/format: Biome (`npm run lint`, `npm run format` from repo root;
   config in `biome.json`). Not ESLint/Prettier - keep it to one tool.
+  `packages/web/design-system/{ui-kit,guidelines,provenance}` are excluded
+  from both (verbatim vendor/reference material from the design export,
+  not app source - don't reformat or fix-lint them, treat their content as
+  read-only).
 - TypeScript: shared strict base in `tsconfig.base.json`, extended per
   package. `npm run typecheck` runs it across all workspaces.
 - Node: `^22.12 || >=24` (matches Vite 8's engine requirement).
