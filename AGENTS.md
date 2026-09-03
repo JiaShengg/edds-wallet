@@ -19,16 +19,36 @@ This file is the project's committed home for project-intrinsic agent knowledge:
   ones. `data/edw-design/report.md` Section 4 is the original design
   research this export superseded.
 - Product/MVP scope: `data/edw-mvp/brief.md`.
+- UX behavior contract for the three Phase 0 screens (login, parent
+  dashboard, child wallet), including the 8 captain-answered UX decisions:
+  `data/edw-wireframes/report.md`. Treat it as authoritative for
+  flow/copy/interaction; `packages/web/design-system/ui-kit/` was only the
+  layout/composition starting point.
+- Backend API contract: `packages/api/API.md` plus `@edds-wallet/shared`'s
+  `api-types.ts`/`schemas.ts`/`constants.ts`.
 
 ## Repo layout
 
-npm workspaces monorepo: `packages/web` (Vite + React 19 SPA, has the
-design system), `packages/api` (Fastify API server - Phase 0 backend is
-implemented: mock auth, full schema/migrations, ledger, allowance
-scheduler), `packages/shared` (Zod schemas + response DTO types shared
-between web/api - the request/response contract). See each package's
-README.md, and `packages/api/API.md` for the endpoint contract the
-frontend integrates against.
+npm workspaces monorepo: `packages/web` (Vite + React 19 SPA - design
+system plus the three real Phase 0 screens under `src/screens/`, see
+`packages/web/README.md`), `packages/api` (Fastify API server - Phase 0
+backend is implemented: mock auth, full schema/migrations, ledger,
+allowance scheduler), `packages/shared` (Zod schemas + response DTO types
+shared between web/api - the request/response contract). See each
+package's README.md, and `packages/api/API.md` for the endpoint contract
+the frontend integrates against.
+
+## Frontend/backend integration
+
+All web `fetch()` calls live in `packages/web/src/api/client.ts` - the one
+module that talks to the API. In dev, `packages/web/vite.config.ts`
+proxies `/api` to `http://127.0.0.1:3001` (the API's `npm run dev`
+default; override with `VITE_API_PROXY_TARGET`), so `npm run dev` from the
+repo root (or two terminals running each package's `dev` script) is
+enough to exercise the full app locally. The required Playwright e2e
+smoke test (`packages/web/e2e/`, `npm run test:e2e -w @edds-wallet/web`)
+needs a real backend running - see `packages/web/README.md` "End-to-end
+test".
 
 ## Tooling
 
