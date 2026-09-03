@@ -3,7 +3,8 @@
   "compilerOptions": {
     "lib": ["ES2023"],
     "noEmit": true,
-    "types": ["node"]
+    "types": ["node"],
+    "allowImportingTsExtensions": true
   },
-  "include": ["src"]
+  "include": ["src", "test", "drizzle.config.ts"]
 }
